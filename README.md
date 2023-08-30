@@ -1,8 +1,8 @@
-# Tämä on tehtävien palatus repo kurssille [FullStackOpen](https://fullstackopen.com/)
+# Tämä on tehtävien palautus repo kurssille [FullStackOpen](https://fullstackopen.com/)
 
 ## Sisältö
 
-Repossa on osa/ tiivistelmä kurssilla olevasta materiaalista sekä tehtävien kuvaukset ja niiden palautukset.
+Repossa on osa/tiivistelmä kurssilla olevasta materiaalista sekä tehtävien kuvaukset ja niiden palautukset.
 
 ## Kansio hierarkia
 
