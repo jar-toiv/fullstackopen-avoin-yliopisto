@@ -12,7 +12,7 @@ Repossa on osa/tiivistelmä kurssilla olevasta materiaalista sekä tehtävien ku
 
 * osa0-assignments
     - assignmentInfo.md (tehtävien anto)
-    - palautuskansio
+    - palautustiedosto
 
 * osa1-assignments
     - assignmentInfo.md (tehtävien anto)
