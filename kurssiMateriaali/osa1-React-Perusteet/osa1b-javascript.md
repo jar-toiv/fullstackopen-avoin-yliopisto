@@ -73,7 +73,7 @@ const tSquared = t.map(p => p * p)
 
 log the props in Component to get value and type
 
-# Exercise 1.5 Notes.
+# Exercise 1.3 Notes.
 
 ### Step 1: Define Object Data in App
 
