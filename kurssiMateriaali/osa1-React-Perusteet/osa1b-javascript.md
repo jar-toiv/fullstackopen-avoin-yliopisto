@@ -1,0 +1,134 @@
+# Javascript
+
+[Ecman linkki](https://www.ecma-international.org/)
+[MDN docit javascriptille](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+It is important to not alter original data. That's why [concat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat) is good method (immutable).
+[Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method also won't alter original data, but creates a new array.
+
+### Array
+
+```
+concat:
+
+const t = [1, -1, 3]
+
+const t2 = t.concat(5)
+
+console.log(t)  // tulostuu [1, -1, 3]
+console.log(t2) // tulostuu [1, -1, 3, 5]
+
+
+map:
+
+const t = [1, 2, 3]
+
+const m1 = t.map(value => value * 2)
+console.log(m1)   // tulostuu [2, 4, 6]
+
+map2:
+
+const m2 = t.map(value => '<li>' + value + '</li>')
+console.log(m2)
+// tulostuu [ '<li>1</li>', '<li>2</li>', '<li>3</li>' ]
+
+
+```
+
+### Object
+
+```
+const object1 = {
+  name: 'Arto Hellas',
+  age: 35,
+  education: 'Filosofian tohtori',
+}
+
+console.log(object1.name)         // tulostuu Arto Hellas
+const fieldName = 'age'
+console.log(object1[fieldName])    // tulostuu 35
+
+Adding field into object:
+
+object1.address = 'Tapiola'
+object1['secret number'] = 12341
+
+
+```
+
+### Function
+
+Note: arrow function does not have its on this. word.
+
+Using map to square elements in an array
+
+```
+const t = [1, 2, 3]
+const tSquared = t.map(p => p * p)
+// tSquared on nyt [1, 4, 9]
+
+```
+
+## console.log tip
+
+log the props in Component to get value and type
+
+# Exercise 1.5 Notes.
+
+### Step 1: Define Object Data in App
+
+There is two objects App component: part1 and part2. Each object has properties name and exercises.
+
+### Step 2: Pass Objects to Content
+
+Pass objects to the Content component named as: part1={part1} and part2={part2}.
+
+### Step 3: Access Object Data in Content
+
+Content component receives these objects (part1 and part2) as props. Properties (name and exercises) can be accessed using dot notation.
+
+### Step 4: Pass Object Properties to Part
+
+Within Content component, use Part component to display the data. Pass the name and exercises of each part object to the Part component, setting them as the part and exercises props.
+
+### Step 5: Render Data in Part
+
+The Part component receives the part and exercises props and renders them.
+
+```
+const Part = ({ part, exercises }) => {
+return (
+<div>
+<p>
+{part}
+{exercises}
+</p>
+</div>
+);
+};
+----
+const Content = ({ part1, part2}) => {
+return (
+<>
+<Part part={part1.name} exercises={part1.exercises} />
+<Part part={part2.name} exercises={part2.exercises} />
+</>
+);
+};
+----
+const App = () => {
+const part1 = {
+name: 'Fundamentals of React',
+exercises: 10,
+};
+const part2 = {
+name: 'Using props to pass data',
+exercises: 7,
+};
+return (
+<div>
+<Content part1={part1} part2={part2} />
+</div>
+);
+};
+```
