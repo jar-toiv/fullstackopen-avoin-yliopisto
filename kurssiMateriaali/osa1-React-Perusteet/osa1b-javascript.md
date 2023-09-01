@@ -132,3 +132,97 @@ return (
 );
 };
 ```
+
+## Exercise 1.5
+
+Last programming exercise of part 1 a.
+
+### Header Component
+
+Takes a course object as a prop and renders the name of the course inside an HTML <h1> tag.
+
+### Part Component
+
+Takes a course object as a prop, but the object here is a "part" of a course. It renders the name of the part and the number of exercises in it.
+
+### Content Component
+
+Also takes a course object as a prop and uses the Part component to display each individual part of the course. Renders three parts of the course using the Part component.
+
+### Total Component
+
+Takes a course object as a prop and calculates the total number of exercises for all parts of the course using the reduce() function.
+
+### App Component
+
+It defines a course object with its name and parts, and then uses the Header, Content, and Total components to render the complete layout.
+
+```
+const Header = ({ course }) => {
+  return (
+    <div>
+      <h1>{course.name}</h1>
+    </div>
+  );
+};
+
+const Part = ({ course }) => {
+  return (
+    <div>
+      <p>{course.name} {course.exercises}</p>
+    </div>
+  );
+};
+
+const Content = ({ course }) => {
+  return (
+    <>
+      <Part course={course.parts[0]} />
+      <Part course={course.parts[1]} />
+      <Part course={course.parts[2]} />
+    </>
+  );
+};
+
+const Total = ({ course }) => {
+  const sumOfExercises = course.parts.reduce((acc, part) => {
+    return acc + part.exercises;
+  }, 0);
+
+  return (
+    <div>
+      <p>{sumOfExercises}</p>
+    </div>
+  );
+};
+
+const App = () => {
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+      },
+    ],
+  };
+
+  return (
+    <div>
+      <Header course={course} />
+      <Content course={course} />
+      <Total course={course} />
+    </div>
+  );
+};
+
+export default App;
+```
