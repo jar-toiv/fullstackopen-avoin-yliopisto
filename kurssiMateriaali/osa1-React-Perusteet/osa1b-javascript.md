@@ -226,3 +226,59 @@ const App = () => {
 
 export default App;
 ```
+
+## Objects, methods and [this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)-keyword
+
+More info:
+
+- [Egghead](https://egghead.io/courses/understand-javascript-s-this-keyword-in-depth)
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [UDKJS kirja](https://github.com/getify/You-Dont-Know-JS)
+- [Javascript.info](https://javascript.info/)
+
+**Course uses React hooks, so this word is not in the scope.**
+
+Example of this inside an object.
+
+```
+const arto = {
+  name: 'Arto Hellas',
+  age: 35,
+  education: 'Filosofian tohtori',
+  greet: function() {
+    console.log('hello, my name is', this.name)
+  },
+}
+
+arto.greet()  // tulostuu hello, my name is Arto Hellas
+```
+
+Using **bind** to bind **this** into a setTimeout. Now it won't get "lost".
+
+```
+setTimeout(arto.greet.bind(arto), 1000)
+// sekunnin päästä tulostuu hello, my name is Arto Hellas
+```
+
+## Class
+
+Javascript itself does not have a class. Only Number, String, Boolean, Null, Undefined, Symbol, BigInt and Object.
+Class has Object body, but it can be extended. If you extend class remember to all super() from parent Class.
+
+```
+class Person {
+  constructor(name, age) {
+    this.name = name
+    this.age = age
+  }
+  greet() {
+    console.log('hello, my name is', this.name)
+  }
+}
+
+const arto = new Person('Arto Hellas', 35)
+arto.greet()
+
+const juha = new Person('Juha Tauriainen', 48)
+juha.greet()
+```
