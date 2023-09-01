@@ -1,4 +1,4 @@
-# Tehtävät 1.1-1.X
+# Tehtävät 1.1-1.14
 
 ## 1.1: kurssitiedot, step1
 
@@ -106,6 +106,7 @@ exercises: 14
 }
 
 return (
+
 <div>
 ...
 </div>
@@ -134,6 +135,7 @@ exercises: 14
 ]
 
 return (
+
 <div>
 ...
 </div>
@@ -148,6 +150,7 @@ const App = () => {
 // const-määrittelyt
 
 return (
+
 <div>
 <Header course={...} />
 <Content parts={parts} />
@@ -180,8 +183,134 @@ exercises: 14
 }
 
 return (
+
 <div>
 ...
 </div>
 )
 }
+
+# 1.6 - 1.14
+
+## 1.6
+
+1.6: unicafe step1
+Monien firmojen tapaan nykyään myös Helsingin yliopiston opiskelijaruokala Unicafe kerää asiakaspalautetta. Tee Unicafelle verkossa toimiva palautesovellus. Vastausvaihtoehtoja olkoon vain kolme: hyvä, neutraali ja huono.
+
+Sovelluksen tulee näyttää jokaisen palautteen lukumäärä. Sovellus voi näyttää esim. seuraavalta:
+
+fullstack content
+Huomaa, että sovelluksen tarvitsee toimia vain yhden selaimen käyttökerran ajan. Esim. kun sivu refreshataan, tilastot saavat hävitä.
+
+Kannattaa noudattaa samaa rakennetta kuin materiaalissa ja edellisessä tehtävässä, eli tiedoston main.jsx sisältö on seuraava:
+
+```
+import ReactDOM from 'react-dom/client'
+import App from './App'
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />)copy
+Muun sovelluksen voi tehdä tiedostoon App.jsx. Tiedoston sisältö voi olla aluksi seuraava:
+
+import { useState } from 'react'
+
+const App = () => {
+  // tallenna napit omaan tilaansa
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  return (
+    <div>
+      code here
+    </div>
+  )
+}
+
+export default App
+```
+
+## 1.7
+
+1.7: unicafe step2
+Laajenna sovellusta siten, että se näyttää palautteista enemmän statistiikkaa: yhteenlasketun määrän, keskiarvon (hyvän arvo 1, neutraalin 0, huonon -1) ja sen kuinka monta prosenttia palautteista on ollut positiivisia:
+
+## 1.8
+
+1.8: unicafe step3
+Refaktoroi sovelluksesi siten, että tilastojen näyttäminen on eriytetty oman komponentin Statistics vastuulle. Sovelluksen tila säilyy edelleen juurikomponentissa App.
+
+Muista, että komponentteja ei saa määritellä toisen komponentin sisällä:
+
+## 1.9
+
+1.9: unicafe step4
+Muuta sovellusta siten, että numeeriset tilastot näytetään ainoastaan, jos palautteita on jo annettu:
+
+## 1.10
+
+1.10: unicafe step5
+Jatketaan sovelluksen refaktorointia. Eriytä seuraavat kaksi komponenttia
+
+Button vastaa yksittäistä palautteenantonappia
+StatisticLine huolehtii tilastorivien, esim. keskiarvon näyttämisestä
+Tarkennuksena: komponentti StatisticLine näyttää aina yhden tilastorivin, joten sovellus käyttää komponenttia useaan kertaan renderöidäkseen kaikki tilastorivit
+
+Sovelluksen tila säilytetään edelleen juurikomponentissa App.
+
+## 1.11
+
+Toteuta tilastojen näyttäminen HTML:n taulukkona siten, että saat sovelluksesi näyttämään suunnilleen seuraavanlaiselta:
+
+tee tarvittavat toimenpiteet, jotta saat warningin katoamaan. Googlaa tarvittaessa virheilmoituksella.
+
+Huolehdi nyt ja jatkossa, että konsolissa ei näy mitään warningeja!
+
+## 1.12
+
+1.12\*: anekdootit step1
+Ohjelmistotuotannossa tunnetaan lukematon määrä anekdootteja eli pieniä "onelinereita", jotka kiteyttävät alan ikuisia totuuksia.
+
+Laajenna seuraavaa sovellusta siten, että siihen tulee nappi, jota painamalla sovellus näyttää satunnaisen ohjelmistotuotantoon liittyvän anekdootin:
+
+Tiedoston main.jsx sisältö on sama kuin edellisissä tehtävissä.
+
+Google kertoo, miten voit generoida JavaScriptilla sopivia satunnaisia lukuja. Muista, että voit testata esim. satunnaislukujen generointia konsolissa.
+
+Sovellus voi näyttää esim. seuraavalta:
+
+## 1.13
+
+Laajenna sovellusta siten, että näytettävää anekdoottia on mahdollista äänestää:
+
+Huom: kunkin anekdootin äänet kannattanee tallettaa komponentin tilassa olevan olion kenttiin tai taulukkoon. Muista, että tilan oikeaoppinen päivittäminen edellyttää olion tai taulukon kopioimista.
+
+Olio voidaan kopioida esim. seuraavasti
+
+```
+const points = { 0: 1, 1: 3, 2: 4, 3: 2 }
+
+const copy = { ...points }
+// kasvatetaan olion kentän 2 arvoa yhdellä
+copy[2] += 1     copy
+```
+
+ja taulukko esim. seuraavasti:
+
+```
+const points = [1, 4, 6, 3]
+
+const copy = [...points]
+// kasvatetaan taulukon paikan 2 arvoa yhdellä
+copy[2] += 1     copy
+```
+
+Yksinkertaisempi ratkaisu lienee nyt taulukon käyttö. Googlaamalla löydät paljon vihjeitä sille, miten kannattaa luoda halutun mittainen taulukko, joka on täytetty nollilla, esim. tämän.
+
+## 1.14
+
+Ja sitten vielä lopullinen versio, joka näyttää eniten ääniä saaneen anekdootin:
+
+fullstack content
+Jos suurimman äänimäärän saaneita anekdootteja on useita, riittää että niistä näytetään yksi.
+
+Tämä oli osan viimeinen tehtävä, ja on aika pushata koodi GitHubiin ja merkata tehdyt tehtävät
