@@ -99,8 +99,6 @@ setTotal(updatedLeft + right);
 
 const handleRightClick = () => {
 setAll(allClicks.concat('R'));
-console.log('Righty BEFORE', left);
-
     setRight(right + 1);
     setTotal(right + left);
 
