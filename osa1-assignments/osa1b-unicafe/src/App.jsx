@@ -4,7 +4,19 @@ const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
 
-const Statistics = ({ good, neutral, bad, total, calcAvg, posFeedback }) => {
+const Statistics = ({
+  good,
+  neutral,
+  bad,
+  total,
+  calcAvg,
+  posFeedback,
+  feedbackGiven,
+}) => {
+  if (!feedbackGiven) {
+    return <p>No feedback given</p>;
+  }
+
   return (
     <div>
       <h2>Statistics:</h2>
@@ -48,6 +60,7 @@ const App = () => {
 
   const calculateAverage = total === 0 ? 0 : (good - bad) / total;
   const positiveFeedbackPercentage = total === 0 ? 0 : (good / total) * 100;
+  const feedbackGiven = total <= 0 ? false : true;
 
   return (
     <>
@@ -66,6 +79,7 @@ const App = () => {
             total={total}
             calcAvg={calculateAverage}
             posFeedback={positiveFeedbackPercentage}
+            feedbackGiven={feedbackGiven}
           />
         </div>
       </div>
