@@ -1,22 +1,31 @@
 import { useState } from 'react';
 const Header = ({ header }) => <h1>{header}</h1>;
-const Statistics = ({ stats }) => <h2>{stats}: </h2>;
-
 const Button = ({ handleClick, text }) => (
-  <div>
-    <button onClick={handleClick}>{text}</button>
-  </div>
+  <button onClick={handleClick}>{text}</button>
 );
 
+const Statistics = ({ good, neutral, bad, total, calcAvg, posFeedback }) => {
+  return (
+    <div>
+      <h2>Statistics:</h2>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+      <p>Total: {total}</p>
+      <p> Average: {calcAvg}</p>
+      <p> Positive: {posFeedback}</p>
+    </div>
+  );
+};
+
 /**
- * Docs for button useState, tiggers re-render by taking oldState and pointing it with + 1 for newState with Re-render.
+ * Docs for button useState, triggers re-render by taking oldState and pointing it with + 1 for newState with Re-render.
  * setGood((good) => good + 1);
  * https://react.dev/reference/react/useState#setstate
  */
 
 const App = () => {
   const header = 'Give feedback';
-  const statistics = 'Statistic';
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
@@ -50,13 +59,14 @@ const App = () => {
           <Button handleClick={handleBtnBad} text={'bad'} />
         </div>
         <div>
-          <Statistics stats={statistics} />
-          <p>Good: {good}</p>
-          <p>Neutral: {neutral}</p>
-          <p>Bad: {bad}</p>
-          <p>All: {total} </p>
-          <p>Average: {calculateAverage.toFixed(5)}</p>
-          <p>Positive: {positiveFeedbackPercentage.toFixed(2)} %</p>
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={total}
+            calcAvg={calculateAverage}
+            posFeedback={positiveFeedbackPercentage}
+          />
         </div>
       </div>
     </>
