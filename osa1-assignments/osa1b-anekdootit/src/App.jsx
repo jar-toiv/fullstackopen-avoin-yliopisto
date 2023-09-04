@@ -5,7 +5,6 @@ const Button = ({ handleClick, text }) => (
 );
 
 const StatisticLine = ({ vote }) => <div>{vote}</div>;
-
 const Statistics = ({ votes, selected }) => {
   return (
     <div>
@@ -13,12 +12,29 @@ const Statistics = ({ votes, selected }) => {
         <thead>
           <tr>
             <td>
-              <StatisticLine vote={votes[selected] || 0} />{' '}
+              <StatisticLine vote={votes[selected] || 0} />
             </td>
             <td>Votes</td>
           </tr>
         </thead>
       </table>
+    </div>
+  );
+};
+
+const MostVoted = ({ allVotes, anecdotes }) => {
+  const getMostVoted = Math.max(...allVotes);
+  const indexOfMostVoted = allVotes.indexOf(getMostVoted);
+  const mostVotedAnecdote = anecdotes[indexOfMostVoted];
+
+  if (allVotes.every((vote) => vote === 0)) {
+    return <p>No votes yet.</p>;
+  }
+  return (
+    <div>
+      <h2>Anecdote with most votes</h2>
+      <p>{mostVotedAnecdote}</p>
+      <p>Has {getMostVoted} votes.</p>
     </div>
   );
 };
@@ -35,7 +51,9 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
-  const [votedAnecdotes, setVotedAnecdotes] = useState([0]);
+  const [votedAnecdotes, setVotedAnecdotes] = useState(
+    new Array(anecdotes.length).fill(0)
+  );
 
   const getRandomAnecdote = () => {
     const randomAnecdoteIndex = Math.floor(Math.random() * anecdotes.length);
@@ -53,11 +71,17 @@ const App = () => {
   return (
     <>
       <div>
-        <Button handleClick={getRandomAnecdote} text={'Anecdote'} />
-        <Button handleClick={voteAnecdote} text={'Vote'} />
-        <Statistics votes={votedAnecdotes} selected={selected} />
+        <h1>Anecdote of the day</h1>
+        <div>
+          <Button handleClick={getRandomAnecdote} text={'Anecdote'} />
+          <Button handleClick={voteAnecdote} text={'Vote'} />
+          <Statistics votes={votedAnecdotes} selected={selected} />
+        </div>
+        <div>{anecdotes[selected]}</div>
+        <div>
+          <MostVoted allVotes={votedAnecdotes} anecdotes={anecdotes} />
+        </div>
       </div>
-      <div>{anecdotes[selected]}</div>
     </>
   );
 };
