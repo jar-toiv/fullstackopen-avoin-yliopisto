@@ -4,6 +4,14 @@ const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
 
+const StatisticLine = ({ text, value }) => {
+  return (
+    <div>
+      {text}: {value}
+    </div>
+  );
+};
+
 const Statistics = ({
   good,
   neutral,
@@ -11,22 +19,24 @@ const Statistics = ({
   total,
   calcAvg,
   posFeedback,
-  feedbackGiven,
+  checkFeedback,
 }) => {
-  if (!feedbackGiven) {
+  if (!checkFeedback) {
     return <p>No feedback given</p>;
   }
 
   return (
-    <div>
-      <h2>Statistics:</h2>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>Total: {total}</p>
-      <p> Average: {calcAvg}</p>
-      <p> Positive: {posFeedback}</p>
-    </div>
+    <>
+      <div>
+        <h2>Statistics:</h2>
+        <StatisticLine text={'Good'} value={good} />
+        <StatisticLine text={'Neutral'} value={neutral} />
+        <StatisticLine text={'Bad'} value={bad} />
+        <StatisticLine text={'Total'} value={total} />
+        <StatisticLine text={'Average'} value={calcAvg} />
+        <StatisticLine text={'Positive'} value={posFeedback} />
+      </div>
+    </>
   );
 };
 
@@ -60,7 +70,7 @@ const App = () => {
 
   const calculateAverage = total === 0 ? 0 : (good - bad) / total;
   const positiveFeedbackPercentage = total === 0 ? 0 : (good / total) * 100;
-  const feedbackGiven = total <= 0 ? false : true;
+  const checkFeedback = total <= 0 ? false : true;
 
   return (
     <>
@@ -71,17 +81,16 @@ const App = () => {
           <Button handleClick={handleBtnNeutral} text={'neutral'} />
           <Button handleClick={handleBtnBad} text={'bad'} />
         </div>
-        <div>
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={total}
-            calcAvg={calculateAverage}
-            posFeedback={positiveFeedbackPercentage}
-            feedbackGiven={feedbackGiven}
-          />
-        </div>
+
+        <Statistics
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          total={total}
+          calcAvg={calculateAverage.toFixed(2)}
+          posFeedback={positiveFeedbackPercentage.toFixed(2)}
+          checkFeedback={checkFeedback}
+        />
       </div>
     </>
   );
