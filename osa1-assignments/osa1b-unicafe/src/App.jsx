@@ -7,7 +7,7 @@ const Button = ({ handleClick, text }) => (
 const StatisticLine = ({ text, value }) => {
   return (
     <div>
-      {text}: {value}
+      {text} {value}
     </div>
   );
 };
@@ -33,32 +33,50 @@ const Statistics = ({
           <thead>
             <tr>
               <td>
-                <StatisticLine text={'Good'} value={good} />
+                <StatisticLine text={'Good'} />
+              </td>
+              <td>
+                <StatisticLine value={good} />
               </td>
             </tr>
             <tr>
               <td>
-                <StatisticLine text={'Neutral'} value={neutral} />
+                <StatisticLine text={'Neutral'} />
+              </td>
+              <td>
+                <StatisticLine value={neutral} />
               </td>
             </tr>
             <tr>
               <td>
-                <StatisticLine text={'Bad'} value={bad} />
+                <StatisticLine text={'Bad'} />
+              </td>
+              <td>
+                <StatisticLine value={bad} />
               </td>
             </tr>
             <tr>
               <td>
-                <StatisticLine text={'Total'} value={total} />
+                <StatisticLine text={'Total'} />
+              </td>
+              <td>
+                <StatisticLine value={total} />
               </td>
             </tr>
             <tr>
               <td>
-                <StatisticLine text={'Average'} value={calcAvg} />
+                <StatisticLine text={'Average'} />
+              </td>
+              <td>
+                <StatisticLine value={calcAvg} />
               </td>
             </tr>
             <tr>
               <td>
-                <StatisticLine text={'Positive'} value={posFeedback + ' %'} />
+                <StatisticLine text={'Positive'} />
+              </td>
+              <td>
+                <StatisticLine value={posFeedback + ' %'} />
               </td>
             </tr>
           </thead>
