@@ -4,6 +4,24 @@ const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
 
+const StatisticLine = ({ vote }) => <div>{vote}</div>;
+
+const Statistics = ({ votes, selected }) => {
+  return (
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <td>
+              <StatisticLine vote={votes[selected] || 0} />{' '}
+            </td>
+            <td>Votes</td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  );
+};
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -17,16 +35,27 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votedAnecdotes, setVotedAnecdotes] = useState([0]);
 
-  const getAnecdote = () => {
+  const getRandomAnecdote = () => {
     const randomAnecdoteIndex = Math.floor(Math.random() * anecdotes.length);
     setSelected(randomAnecdoteIndex);
+  };
+
+  const voteAnecdote = () => {
+    setVotedAnecdotes((votedAnecdotes) => {
+      const newVotes = [...votedAnecdotes];
+      newVotes[selected] = (newVotes[selected] || 0) + 1;
+      return newVotes;
+    });
   };
 
   return (
     <>
       <div>
-        <Button handleClick={getAnecdote} text={'Anecdote'} />
+        <Button handleClick={getRandomAnecdote} text={'Anecdote'} />
+        <Button handleClick={voteAnecdote} text={'Vote'} />
+        <Statistics votes={votedAnecdotes} selected={selected} />
       </div>
       <div>{anecdotes[selected]}</div>
     </>
