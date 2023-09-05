@@ -1,6 +1,7 @@
 # Tehtävät 2.1 - 2.XX
 
-##2.1: Course information step6
+## 2.1: Course information step6
+
 Let's finish the code for rendering course contents from exercises 1.1 - 1.5. You can start with the code from the model answers. The model answers for part 1 can be found by going to the submission system, clicking on my submissions at the top, and in the row corresponding to part 1 under the solutions column clicking on show. To see the solution to the course info exercise, click on index.js under kurssitiedot ("kurssitiedot" means "course info").
 
 Note that if you copy a project from one place to another, you might have to delete the node_modules directory and install the dependencies again with the command npm install before you can start the application.
@@ -67,7 +68,7 @@ Show also the sum of the exercises of the course.
 
 sum of exercises added feature
 
-## 2.3\*: Course information step8
+## 2.3 Course information step8
 
 If you haven't done so already, calculate the sum of exercises with the array method reduce.
 
