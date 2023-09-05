@@ -21,6 +21,7 @@ const Content = ({ parts }) => {
           </li>
         ))}
       </ul>
+      <TotalExercises allParts={parts} />
     </div>
   );
 };
@@ -31,6 +32,14 @@ const Part = ({ partName, partExercises }) => {
       {partName}: {partExercises}
     </p>
   );
+};
+
+const TotalExercises = ({ allParts }) => {
+  const sumOfExercises = allParts.reduce(
+    (sum, part) => sum + part.exercises,
+    0
+  );
+  return <h3>Total of {sumOfExercises} exercises.</h3>;
 };
 
 const App = () => {
@@ -54,8 +63,8 @@ const App = () => {
         id: 3,
       },
       {
-        name: 'Test part',
-        exercises: 420,
+        name: 'Test Course Part',
+        exercises: 5,
         id: 4,
       },
     ],
