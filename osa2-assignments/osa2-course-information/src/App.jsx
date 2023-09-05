@@ -35,6 +35,7 @@ const Part = ({ partName, partExercises }) => {
 };
 
 const TotalExercises = ({ allParts }) => {
+  // Exercise part 2.2 & 2.3
   const sumOfExercises = allParts.reduce(
     (sum, part) => sum + part.exercises,
     0
