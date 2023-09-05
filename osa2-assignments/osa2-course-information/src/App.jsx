@@ -1,42 +1,38 @@
-const Header = ({ course }) => {
+const Course = ({ course }) => {
   return (
     <div>
-      <h1>{course.name}</h1>
+      <Header name={course.name} />
+      <Content parts={course.parts} />
     </div>
   );
 };
 
-const Part = ({ course }) => {
+const Header = ({ name }) => {
+  return <h1>{name}</h1>;
+};
+
+const Content = ({ parts }) => {
   return (
     <div>
-      <p>
-        {course.name} {course.exercises}
-      </p>
+      <ul>
+        {parts.map((part) => (
+          <li key={part.id}>
+            <Part partName={part.name} partExercises={part.exercises} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-const Content = ({ course }) => {
+const Part = ({ partName, partExercises }) => {
   return (
-    <>
-      <Part course={course.parts[0]} />
-      <Part course={course.parts[1]} />
-      <Part course={course.parts[2]} />
-    </>
+    <p>
+      {partName}: {partExercises}
+    </p>
   );
 };
 
-const Total = ({ course }) => {
-  const sumOfExercises = course.parts.reduce((acc, part) => {
-    return acc + part.exercises;
-  }, 0);
-
-  return (
-    <div>
-      <p>{sumOfExercises}</p>
-    </div>
-  );
-};
 const App = () => {
   const course = {
     name: 'Half Stack application development',
@@ -56,6 +52,11 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3,
+      },
+      {
+        name: 'Test part',
+        exercises: 420,
+        id: 4,
       },
     ],
   };
