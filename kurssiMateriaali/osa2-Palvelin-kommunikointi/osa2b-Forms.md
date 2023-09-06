@@ -99,3 +99,15 @@ export default App;
   </div>
 
 - \*/
+
+## How the Form flow works.
+
+### Memo from exercise 2.6
+
+- The value={newName} attribute in the <input> element binds the input's value to the newName state variable. This makes the input a "controlled component" in React terms.
+
+- The onChange={handleContactChange} attribute is almost mandatory when you're using controlled components. It specifies what should happen when the input value changes.
+
+- The handleContactChange function gets triggered whenever the user types into the input field. Its job is to update the newName state variable with whatever the user has typed. It does so by calling setNewName(e.target.value), where e.target.value is the current text in the input field.
+
+When the form is submitted, the addContact function creates a newContactObject using the current value of newName from the state. This object is then added to the persons array.
