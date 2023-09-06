@@ -13,7 +13,23 @@ const App = () => {
       contactID: persons.length + 1,
       name: newName,
     };
-    setPersons(persons.concat(newContactObject));
+
+    for (const person of [...persons]) {
+      if (person.name === newContactObject.name) {
+        return alert(`Contact ${person.name} is already in phonebook`);
+      }
+    }
+    if (
+      newContactObject.name === null ||
+      newContactObject.name === undefined ||
+      newContactObject.name === '' ||
+      newContactObject.name === ' '
+    ) {
+      return alert('Please insert proper name');
+    } else {
+      setPersons(persons.concat(newContactObject));
+    }
+
     setNewName('');
   };
 
