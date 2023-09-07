@@ -9,6 +9,7 @@ const App = () => {
   ]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+  const [filterContact, setFindContact] = useState('');
 
   const addContact = (e) => {
     e.preventDefault();
@@ -47,9 +48,22 @@ const App = () => {
     setNewNumber(e.target.value);
   };
 
+  const handleFilterContact = (e) => {
+    setFindContact(e.target.value);
+  };
+
+  const filteredPersons = persons.filter((person) =>
+    person.name.toLowerCase().includes(filterContact.toLocaleLowerCase())
+  );
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        Contact search:{' '}
+        <input value={filterContact} onChange={handleFilterContact}></input>
+      </div>
+      <h2>Add Contact</h2>
       <form onSubmit={addContact}>
         <div>
           Name:
@@ -65,7 +79,7 @@ const App = () => {
       </form>
       <h2>Contacts</h2>
       <ul>
-        {persons.map((person) => (
+        {filteredPersons.map((person) => (
           <li key={person.key}>
             {person.name} - {person.number}
           </li>
