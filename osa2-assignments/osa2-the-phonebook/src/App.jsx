@@ -77,7 +77,7 @@ const App = () => {
           <button type="submit">Add</button>
         </div>
       </form>
-      <h2>Contacts</h2>
+      <h2>Contacts:</h2>
       <ul>
         {filteredPersons.map((person) => (
           <li key={person.key}>
