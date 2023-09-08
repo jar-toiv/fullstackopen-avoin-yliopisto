@@ -1,0 +1,28 @@
+{
+  "persons": [
+    {
+      "key": 1,
+      "name": "Kake Randelin",
+      "number": "040-123456",
+      "contactID": 1
+    },
+    {
+      "key": 2,
+      "name": "Ada Lovelace",
+      "number": "39-44-5323523",
+      "contactID": 2
+    },
+    {
+      "key": 3,
+      "name": "Dan Abramov",
+      "number": "12-43-234345",
+      "contactID": 3
+    },
+    {
+      "key": 4,
+      "name": "Lemmy Kilmister",
+      "number": "39-23-6423122",
+      "contactID": 4
+    }
+  ]
+}
