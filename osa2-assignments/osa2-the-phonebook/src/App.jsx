@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import Filter from './components/ContactFilter';
+import ContactForm from './components/AddContactForm';
+import { Contacts } from './components/Contact';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -52,39 +55,27 @@ const App = () => {
     setFindContact(e.target.value);
   };
 
-  const filteredPersons = persons.filter((person) =>
+  const filteredContacts = persons.filter((person) =>
     person.name.toLowerCase().includes(filterContact.toLocaleLowerCase())
   );
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        Contact search:{' '}
-        <input value={filterContact} onChange={handleFilterContact}></input>
-      </div>
+      <Filter
+        filterContact={filterContact}
+        handleFilterContact={handleFilterContact}
+      />
       <h2>Add Contact</h2>
-      <form onSubmit={addContact}>
-        <div>
-          Name:
-          <input value={newName} onChange={handleContactChange} />
-        </div>
-        <div>
-          Number:
-          <input value={newNumber} onChange={handleNumberChange}></input>
-        </div>
-        <div>
-          <button type="submit">Add</button>
-        </div>
-      </form>
+      <ContactForm
+        addContact={addContact}
+        handleContactChange={handleContactChange}
+        handleNumberChange={handleNumberChange}
+        newName={newName}
+        newNumber={newNumber}
+      />
       <h2>Contacts:</h2>
-      <ul>
-        {filteredPersons.map((person) => (
-          <li key={person.key}>
-            {person.name} - {person.number}
-          </li>
-        ))}
-      </ul>
+      <Contacts personsList={filteredContacts} />
     </div>
   );
 };
