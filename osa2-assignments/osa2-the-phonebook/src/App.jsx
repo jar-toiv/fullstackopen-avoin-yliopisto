@@ -1,27 +1,31 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import Filter from './components/ContactFilter';
 import ContactForm from './components/AddContactForm';
 import { Contacts } from './components/Contact';
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { key: 1, name: 'Kake Randelin', number: '040-123456', contactID: 1 },
-    { key: 2, name: 'Irwin Goodman', number: '39-44-5323523', contactID: 2 },
-    { key: 3, name: 'Kirka Saatana', number: '12-43-234345', contactID: 3 },
-    { key: 4, name: 'Lemmy Kilmister', number: '39-23-6423122', contactID: 4 },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filterContact, setFindContact] = useState('');
+
+  const fetchPersonsFromDB = () => {
+    axios.get('http://localhost:3001/persons').then((res) => {
+      console.log(res.data);
+      setPersons(res.data);
+    });
+  };
+  useEffect(fetchPersonsFromDB, []);
 
   const addContact = (e) => {
     e.preventDefault();
 
     const newContactObject = {
       key: persons.length + 1,
-      contactID: persons.length + 1,
       name: newName,
       number: newNumber,
+      contactID: persons.length + 1,
     };
 
     for (const person of [...persons]) {
