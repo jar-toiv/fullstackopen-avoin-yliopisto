@@ -1,6 +1,10 @@
 import axios from 'axios';
 const baseUrl = 'http://localhost:3001/contacts';
 
+/**
+ *
+ * imported in App as contactService
+ */
 const getAll = () => {
   const request = axios.get(baseUrl);
   return request.then((res) => res.data);

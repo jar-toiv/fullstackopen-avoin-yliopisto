@@ -5,6 +5,11 @@ import ContactForm from './components/AddContactForm';
 import { Contacts } from './components/Contact';
 import contactService from './services/phonebook';
 
+/**
+ *
+ * contactService acts as a backend com.
+ */
+
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
