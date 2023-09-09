@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Filter from './components/ContactFilter';
 import ContactForm from './components/AddContactForm';
 import { Contacts } from './components/Contact';
+import contactService from './services/phonebook';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -10,22 +11,18 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [filterContact, setFindContact] = useState('');
 
-  const fetchPersonsFromDB = () => {
-    axios.get('http://localhost:3001/persons').then((res) => {
-      console.log(res.data);
-      setPersons(res.data);
+  const fetchContactsFromDB = () => {
+    contactService.getAll().then((initialContactList) => {
+      setPersons(initialContactList);
     });
   };
-  useEffect(fetchPersonsFromDB, []);
+  useEffect(fetchContactsFromDB, []);
 
   const addContact = (e) => {
     e.preventDefault();
-
     const newContactObject = {
-      key: persons.length + 1,
       name: newName,
       number: newNumber,
-      contactID: persons.length + 1,
     };
 
     for (const person of [...persons]) {
@@ -39,10 +36,13 @@ const App = () => {
       newContactObject.name === '' ||
       newContactObject.name === ' '
     ) {
-      return alert('Please insert proper name');
+      return alert('Please insert a proper name');
     } else {
-      setPersons(persons.concat(newContactObject));
+      contactService.create(newContactObject).then((returnedObject) => {
+        setPersons(persons.concat(returnedObject));
+      });
     }
+
     setNewName('');
     setNewNumber('');
   };
