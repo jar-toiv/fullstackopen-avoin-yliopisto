@@ -1,10 +1,9 @@
 import axios from 'axios';
+import contactService from './services/phonebook';
 import { useState, useEffect } from 'react';
 import Filter from './components/ContactFilter';
 import ContactForm from './components/AddContactForm';
 import { Contacts } from './components/Contact';
-import contactService from './services/phonebook';
-
 /**
  *
  * contactService acts as a backend com.
@@ -52,6 +51,24 @@ const App = () => {
     setNewNumber('');
   };
 
+  const handleDelete = (contactId) => {
+    const findContact = persons.find((person) => person.id === contactId);
+    const filterContact = persons.filter((person) => person.id !== contactId);
+
+    if (window.confirm(`Delete contact ${findContact.name} ?`)) {
+      contactService
+        .deleteContact(contactId)
+        .then(() => {
+          setPersons(filterContact);
+        })
+        .catch((error) => {
+          console.log('Error when deleting contact', error);
+        });
+    } else {
+      console.log('CANCELLED DELETE');
+    }
+  };
+
   const handleContactChange = (e) => {
     setNewName(e.target.value);
   };
@@ -84,7 +101,9 @@ const App = () => {
         newNumber={newNumber}
       />
       <h2>Contacts:</h2>
-      <Contacts personsList={filteredContacts} />
+      <div>
+        <Contacts personsList={filteredContacts} onDelete={handleDelete} />
+      </div>
     </div>
   );
 };

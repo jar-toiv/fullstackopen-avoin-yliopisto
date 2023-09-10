@@ -14,4 +14,9 @@ const create = (newObject) => {
   const request = axios.post(baseUrl, newObject);
   return request.then((res) => res.data);
 };
-export default { getAll, create };
+
+const deleteContact = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`);
+  return request.then((res) => res.data);
+};
+export default { getAll, create, deleteContact };
