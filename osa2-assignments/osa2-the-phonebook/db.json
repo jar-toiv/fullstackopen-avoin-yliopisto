@@ -1,29 +1,19 @@
 {
   "contacts": [
     {
-      "id": 1,
-      "name": "Kake Randelin",
-      "number": "040-123456"
-    },
-    {
-      "id": 2,
       "name": "Ada Lovelace",
-      "number": "39-44-5323523"
+      "number": "39-44-5323523",
+      "id": 1
     },
     {
-      "id": 3,
       "name": "Dan Abramov",
-      "number": "12-43-234345"
+      "number": "12-43-234345",
+      "id": 2
     },
     {
-      "id": 4,
       "name": "Lemmy Kilmister",
-      "number": "39-23-6423122"
-    },
-    {
-      "name": "Spiderman",
-      "number": "14124",
-      "id": 5
+      "number": "39-23-6423122",
+      "id": 3
     }
   ]
 }
