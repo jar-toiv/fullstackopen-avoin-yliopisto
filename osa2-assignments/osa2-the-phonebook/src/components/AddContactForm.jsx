@@ -1,15 +1,15 @@
 import React from 'react';
 
 const ContactForm = ({
-  addContact,
   newName,
   newNumber,
   handleContactChange,
   handleNumberChange,
+  determineAction,
 }) => {
   return (
     <div>
-      <form onSubmit={addContact}>
+      <form onSubmit={determineAction}>
         <div>
           Name:
           <input value={newName} onChange={handleContactChange} />
@@ -19,7 +19,7 @@ const ContactForm = ({
           <input value={newNumber} onChange={handleNumberChange}></input>
         </div>
         <div>
-          <button type="submit">Add</button>
+          <button type="submit">Save</button>
         </div>
       </form>
     </div>

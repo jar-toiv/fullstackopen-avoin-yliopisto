@@ -22,6 +22,18 @@ const App = () => {
   };
   useEffect(fetchContactsFromDB, []);
 
+  const determineAddContactOrUpdate = (e) => {
+    e.preventDefault();
+    const existingContact = persons.find((person) => person.name === newName);
+
+    if (!existingContact) {
+      addContact(e);
+    } else {
+      const contactId = existingContact.id;
+      handleUpdate(e, contactId);
+    }
+  };
+
   const addContact = (e) => {
     e.preventDefault();
     const newContactObject = {
@@ -69,6 +81,37 @@ const App = () => {
     }
   };
 
+  const handleUpdate = (e, contactId) => {
+    e.preventDefault();
+
+    const findContact = persons.find((person) => person.id === contactId);
+    const newObject = {
+      id: contactId,
+      name: newName,
+      number: newNumber,
+    };
+    if (
+      window.confirm(
+        `${findContact.name} is already added to phonebook, replace the old number with a new one ?`
+      )
+    ) {
+      contactService
+        .update(contactId, newObject)
+        .then((updatedContact) => {
+          setPersons((persons) =>
+            persons.map((person) =>
+              person.id === contactId ? updatedContact : person
+            )
+          );
+        })
+        .catch((error) => {
+          console.log('Error while updating', error);
+        });
+    }
+    setNewName('');
+    setNewNumber('');
+  };
+
   const handleContactChange = (e) => {
     setNewName(e.target.value);
   };
@@ -99,6 +142,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
         newName={newName}
         newNumber={newNumber}
+        determineAction={determineAddContactOrUpdate}
       />
       <h2>Contacts:</h2>
       <div>
