@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Filter from './components/ContactFilter';
 import ContactForm from './components/AddContactForm';
 import { Contacts } from './components/Contact';
+import Notification from './components/Notification';
 /**
  *
  * contactService acts as a backend com.
@@ -14,6 +15,7 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filterContact, setFindContact] = useState('');
+  const [message, setMessage] = useState({ type: null, contact: null });
 
   const fetchContactsFromDB = () => {
     contactService.getAll().then((initialContactList) => {
@@ -54,8 +56,12 @@ const App = () => {
     ) {
       return alert('Please insert a proper name');
     } else {
-      contactService.create(newContactObject).then((returnedObject) => {
-        setPersons(persons.concat(returnedObject));
+      contactService.create(newContactObject).then((newContactObject) => {
+        setPersons(persons.concat(newContactObject));
+        setMessage({ type: 'success', content: `Added contact ${newName}` });
+        setTimeout(() => {
+          setMessage({ type: null, contact: null });
+        }, 2000);
       });
     }
 
@@ -85,18 +91,19 @@ const App = () => {
     e.preventDefault();
 
     const findContact = persons.find((person) => person.id === contactId);
-    const newObject = {
+    const updateContactDetails = {
       id: contactId,
       name: newName,
       number: newNumber,
     };
+
     if (
       window.confirm(
         `${findContact.name} is already added to phonebook, replace the old number with a new one ?`
       )
     ) {
       contactService
-        .update(contactId, newObject)
+        .update(contactId, updateContactDetails)
         .then((updatedContact) => {
           setPersons((persons) =>
             persons.map((person) =>
@@ -105,9 +112,18 @@ const App = () => {
           );
         })
         .catch((error) => {
-          console.log('Error while updating', error);
+          setMessage({ type: 'error', content: 'Error while updating' });
         });
+
+      setMessage({
+        type: 'success',
+        content: `Updated ${newName}'s number successfully`,
+      });
+      setTimeout(() => {
+        setMessage({ type: null, content: null });
+      }, 2000);
     }
+
     setNewName('');
     setNewNumber('');
   };
@@ -130,7 +146,8 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      <Notification message={message} />
       <Filter
         filterContact={filterContact}
         handleFilterContact={handleFilterContact}
