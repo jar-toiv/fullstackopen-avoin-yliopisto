@@ -78,12 +78,27 @@ const App = () => {
         .deleteContact(contactId)
         .then(() => {
           setPersons(filterContact);
+          setMessage({
+            type: 'success',
+            content: `Deleted contact`,
+          });
+
+          setTimeout(() => {
+            setMessage({ type: null, contact: null });
+          }, 2000);
         })
         .catch((error) => {
-          console.log('Error when deleting contact', error);
+          setMessage({
+            type: 'error',
+            content: `Contact ${findContact.name} does not exist`,
+          });
+
+          setTimeout(() => {
+            setMessage({ type: null, content: null });
+          }, 3000);
+
+          fetchContactsFromDB();
         });
-    } else {
-      console.log('CANCELLED DELETE');
     }
   };
 
@@ -113,6 +128,9 @@ const App = () => {
         })
         .catch((error) => {
           setMessage({ type: 'error', content: 'Error while updating' });
+          setTimeout(() => {
+            setMessage({ type: null, content: null });
+          }, 3000);
         });
 
       setMessage({
