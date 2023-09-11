@@ -1,1 +1,1 @@
-## This folder contains the program that is used to teach course material.
+## This folder contains the programs that are used to teach the course material.
