@@ -1,5 +1,7 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3001/notes';
+const baseUrl = 'http://localhost:3001/api/notes';
+
+
 
 const getAll = () => {
   const request = axios.get(baseUrl);
@@ -22,8 +24,8 @@ const deleteNote = (id, newObject) => {
 };
 
 export default {
-  getAll: getAll,
-  create: create,
-  update: update,
-  deleteNote: deleteNote,
+  getAll,
+  create,
+  update,
+  deleteNote,
 };
