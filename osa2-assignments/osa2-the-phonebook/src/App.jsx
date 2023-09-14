@@ -1,4 +1,3 @@
-import axios from 'axios';
 import contactService from './services/phonebook';
 import { useState, useEffect } from 'react';
 import Filter from './components/ContactFilter';
@@ -56,19 +55,22 @@ const App = () => {
     ) {
       return alert('Please insert a proper name');
     } else {
-      contactService.create(newContactObject).then((newContactObject) => {
-        setPersons(persons.concat(newContactObject));
+      contactService.create(newContactObject).then((returnedContact) => {
+        setPersons((prevPersons) => {
+          const updatedPersons = prevPersons.concat(returnedContact.contact); // Extract the .contact from the returned object
+          return updatedPersons;
+        });
+
         setMessage({ type: 'success', content: `Added contact ${newName}` });
         setTimeout(() => {
           setMessage({ type: null, contact: null });
         }, 2000);
       });
+
+      setNewName('');
+      setNewNumber('');
     }
-
-    setNewName('');
-    setNewNumber('');
   };
-
   const handleDelete = (contactId) => {
     const findContact = persons.find((person) => person.id === contactId);
     const filterContact = persons.filter((person) => person.id !== contactId);
@@ -159,7 +161,9 @@ const App = () => {
   };
 
   const filteredContacts = persons.filter((person) =>
-    person.name.toLowerCase().includes(filterContact.toLocaleLowerCase())
+    filterContact
+      ? person.name.toLowerCase().includes(filterContact.toLowerCase())
+      : true
   );
 
   return (
