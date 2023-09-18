@@ -30,3 +30,23 @@ Note that the directory paths in the script build:ui depend on the location of r
 "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
 }
 }
+
+# Important
+
+URL for Render.com: https://phonebook-backend-bu7w.onrender.com
+Remember to wait for Render to give CPU resources for website to show up.
+
+### PROCESS for Render.com Backend and Frontend.
+
+**TIP with render: Set env variable key:PORT and value: (what you want /3001) otherwise port is default 10k**
+Build the front from osa2 the phonebook in the project with command npm run build.
+Take the folder and move it to the backend project folder.
+
+Use Express static to server your Build from the folder.
+**Should be after app.use(express.json())**
+
+```
+app.use(express.static('dist'))
+```
+
+TEST: npm start => go to localhost:3001 should still render the webpage.
