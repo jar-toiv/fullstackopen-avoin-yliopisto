@@ -44,28 +44,38 @@ const App = () => {
 
     for (const person of [...persons]) {
       if (person.name === newContactObject.name) {
-        return alert(`Contact ${person.name} is already in phonebook`);
+        return setMessage({
+          type: 'error',
+          content: `Contact ${person.name} is already in phonebook.`,
+        });
       }
     }
-    if (
-      newContactObject.name === null ||
-      newContactObject.name === undefined ||
-      newContactObject.name === '' ||
-      newContactObject.name === ' '
-    ) {
-      return alert('Please insert a proper name');
-    } else {
-      contactService.create(newContactObject).then((returnedContact) => {
-        setPersons((prevPersons) => {
-          const updatedPersons = prevPersons.concat(returnedContact);
-          return updatedPersons;
-        });
 
-        setMessage({ type: 'success', content: `Added contact ${newName}` });
-        setTimeout(() => {
-          setMessage({ type: null, contact: null });
-        }, 2000);
+    if (!newContactObject || newContactObject.name.trim() === '') {
+      return setMessage({
+        type: 'error',
+        content: 'Please insert a proper name',
       });
+    } else {
+      contactService
+        .create(newContactObject)
+        .then((returnedContact) => {
+          setPersons((prevPersons) => {
+            const updatedPersons = prevPersons.concat(returnedContact);
+            return updatedPersons;
+          });
+
+          setMessage({ type: 'success', content: `Added contact ${newName}` });
+          setTimeout(() => {
+            setMessage({ type: null, contact: null });
+          }, 2000);
+        })
+        .catch((error) => {
+          setMessage({ type: 'error', content: error.response.data.message });
+          setTimeout(() => {
+            setMessage({ type: null, contact: null });
+          }, 2000);
+        });
 
       setNewName('');
       setNewNumber('');
