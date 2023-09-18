@@ -7,6 +7,10 @@ const handleServiceError = (error) => {
   // console.log('Message:', error.message);
   //! !!!! Feedback from backend
   // console.log('Content', error.response.data.message);
+
+  return error.response && error.response.data.message
+    ? error.response.data.message
+    : 'An unexpected error occurred. Please try again.';
 };
 
 export default handleServiceError;

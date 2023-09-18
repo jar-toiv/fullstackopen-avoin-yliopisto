@@ -4,6 +4,7 @@ import Filter from './components/ContactFilter';
 import ContactForm from './components/AddContactForm';
 import { Contacts } from './components/Contact';
 import Notification from './components/Notification';
+import handleServiceError from './utils/errorHandler';
 /**
  *
  * contactService acts as a backend com.
@@ -21,6 +22,7 @@ const App = () => {
       setPersons(initialContactList);
     });
   };
+
   useEffect(fetchContactsFromDB, []);
 
   const determineAddContactOrUpdate = (e) => {
@@ -37,6 +39,7 @@ const App = () => {
 
   const addContact = (e) => {
     e.preventDefault();
+
     const newContactObject = {
       name: newName,
       number: newNumber,
@@ -66,15 +69,19 @@ const App = () => {
           });
 
           setMessage({ type: 'success', content: `Added contact ${newName}` });
+
           setTimeout(() => {
             setMessage({ type: null, contact: null });
           }, 2000);
         })
         .catch((error) => {
-          setMessage({ type: 'error', content: error.response.data.message });
+          const errorMessage = handleServiceError(error);
+
+          setMessage({ type: 'error', content: errorMessage });
+
           setTimeout(() => {
             setMessage({ type: null, contact: null });
-          }, 2000);
+          }, 3000);
         });
 
       setNewName('');
@@ -140,7 +147,13 @@ const App = () => {
           );
         })
         .catch((error) => {
-          setMessage({ type: 'error', content: 'Error while updating' });
+          const errorMessage = handleServiceError(error);
+
+          setMessage({
+            type: 'error',
+            content: `Error while updating: ${errorMessage}`,
+          });
+
           setTimeout(() => {
             setMessage({ type: null, content: null });
           }, 3000);
