@@ -57,7 +57,7 @@ const App = () => {
     } else {
       contactService.create(newContactObject).then((returnedContact) => {
         setPersons((prevPersons) => {
-          const updatedPersons = prevPersons.concat(returnedContact.contact); // Extract the .contact from the returned object
+          const updatedPersons = prevPersons.concat(returnedContact);
           return updatedPersons;
         });
 
@@ -71,6 +71,7 @@ const App = () => {
       setNewNumber('');
     }
   };
+
   const handleDelete = (contactId) => {
     const findContact = persons.find((person) => person.id === contactId);
     const filterContact = persons.filter((person) => person.id !== contactId);
