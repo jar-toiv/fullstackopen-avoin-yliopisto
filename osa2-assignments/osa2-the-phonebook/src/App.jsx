@@ -76,11 +76,10 @@ const App = () => {
         })
         .catch((error) => {
           const errorMessage = handleServiceError(error);
-
           setMessage({ type: 'error', content: errorMessage });
 
           setTimeout(() => {
-            setMessage({ type: null, contact: null });
+            setMessage({ type: null, content: null });
           }, 3000);
         });
 
@@ -145,6 +144,7 @@ const App = () => {
               person.id === contactId ? updatedContact : person
             )
           );
+          setMessage({ type: 'success', contact: `Updated contact number` });
         })
         .catch((error) => {
           const errorMessage = handleServiceError(error);
@@ -158,7 +158,31 @@ const App = () => {
             setMessage({ type: null, content: null });
           }, 3000);
         });
+      /**
+ * contactService
+  .create(newContactObject)
+  .then((returnedContact) => {
+    setPersons((prevPersons) => {
+      const updatedPersons = prevPersons.concat(returnedContact);
+      return updatedPersons;
+    });
 
+    setMessage({ type: 'success', content: `Added contact ${newName}` });
+
+    setTimeout(() => {
+      setMessage({ type: null, contact: null });
+    }, 2000);
+  })
+  .catch((error) => {
+    const errorMessage = handleServiceError(error);
+
+    setMessage({ type: 'error', content: errorMessage });
+
+    setTimeout(() => {
+      setMessage({ type: null, content: null });
+    }, 3000);
+  });
+ */
       setMessage({
         type: 'success',
         content: `Updated ${newName}'s number successfully`,

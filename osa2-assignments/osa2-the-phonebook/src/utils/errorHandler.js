@@ -5,12 +5,16 @@ const handleServiceError = (error) => {
   // console.log('Status:', error.response.status);
   // console.log('Headers:', error.response.headers);
   // console.log('Message:', error.message);
-  //! !!!! Feedback from backend
+  //! !!!! Feedback message from backend
   // console.log('Content', error.response.data.message);
 
-  return error.response && error.response.data.message
-    ? error.response.data.message
-    : 'An unexpected error occurred. Please try again.';
-};
+  if (error.response) {
+    const responseData = error.response.data;
 
+    if (error.response.status === 400 && responseData.message) {
+      return responseData.message;
+    }
+  }
+  return 'An unexpected error occurred. Please try again.';
+};
 export default handleServiceError;
